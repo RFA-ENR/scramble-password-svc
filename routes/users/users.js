@@ -6,7 +6,9 @@ router.get('/', async (req, res) => {
   const user = await users.findOne({ where: { username: req.query.username } });
 
   if (user === null || user === undefined) {
-    res.status(404).send();
+    res.status(404).send({
+      message: 'User not found',
+    });
   } else {
     if (user.password === req.query.password && user.isActive) {
       res.send(user);
